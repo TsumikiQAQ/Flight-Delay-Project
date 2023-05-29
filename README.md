@@ -12,8 +12,13 @@
 ![image](https://github.com/TsumikiQAQ/Flight-Delay-Project/assets/116857998/1e6e85d3-fbf9-4ca5-a192-0c9e86fba031)
 
 将ganache中的账户导入metamask
+
+
 ![image](https://github.com/TsumikiQAQ/Flight-Delay-Project/assets/116857998/036b1a6f-2541-451b-ac99-64e7fc07cde4)
 
 运行 npm start 启动项目
+![image](https://github.com/TsumikiQAQ/Flight-Delay-Project/assets/116857998/d932c650-11ab-4a2e-8ffc-e7dc572f8440)
 
 连接钱包使用功能
+![image](https://github.com/TsumikiQAQ/Flight-Delay-Project/assets/116857998/1d8b18c5-30d5-4c2d-b02d-90834a8388c1)
+

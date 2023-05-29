@@ -2,12 +2,12 @@ import { useRef, useState, useEffect,useCallback  } from 'react';
 import { Web3Provider } from "@ethersproject/providers";
 import { useContractFunction } from '@usedapp/core';
 import { Contract } from '@ethersproject/contracts';
-import ALContractABI from 'E:/Flight_Delay_Project/flight-delay-insurance-dapps/src/artifacts/contracts/Airline.sol/Airline.json';
+// import ALContractABI from './artifacts/contracts/Airline.sol/Airline.json';
 import { utils } from 'ethers';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const FlightCompanyPage = () => {
+const FlightCompanyPage = (ALcontract) => {
  
     //  /**
     //  * @dev 发布机票合约(msg.value必须大于_totalSeat * _ticketPrice / 2)
@@ -28,16 +28,16 @@ const FlightCompanyPage = () => {
     const destinationPoint = useRef()
 
   
-    const contractInterface = new utils.Interface(ALContractABI.abi);
-    const contractAddress ='0xb31a21D6Fe5238265BE0c604D3cE477342989AB6';
-    const provider = new Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const contract = new Contract(contractAddress, contractInterface,signer);
+    // const contractInterface = new utils.Interface(ALContractABI.abi);
+    // const contractAddress ='0xb31a21D6Fe5238265BE0c604D3cE477342989AB6';
+    // const provider = new Web3Provider(window.ethereum);
+    // const signer = provider.getSigner();
+    // const contract = new Contract(contractAddress, contractInterface,signer);
 
-    const { send,state } = useContractFunction(contract, 'releaseFlight');
+    const { send,state } = useContractFunction(ALcontract, 'releaseFlight');
     const callContractFunction = useCallback(() => {
         // 检查 contract 对象是否存在
-        if (!contract) {
+        if (!ALcontract) {
           console.error("合约对象为空！");
           return;
         }

@@ -1,5 +1,5 @@
 import { useRef } from "react"
-import ALContractABI from 'E:/Flight_Delay_Project/flight-delay-insurance-dapps/src/artifacts/contracts/Airline.sol/Airline.json';
+// import ALContractABI from 'E:/Flight_Delay_Project/flight-delay-insurance-dapps/src/artifacts/contracts/Airline.sol/Airline.json';
 import { utils } from 'ethers';
 import { Contract } from '@ethersproject/contracts';
 import { Web3Provider } from "@ethersproject/providers";
@@ -10,11 +10,11 @@ const SelectFlight = ()=>{
     const departplace = useRef()
     const arriveplace = useRef()
     const departtime = useRef()
-    const ALcontractInterface = new utils.Interface(ALContractABI.abi);
-    const ALcontractAddress = '0xb31a21D6Fe5238265BE0c604D3cE477342989AB6';
-    const provider = new Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const ALcontract = new Contract(ALcontractAddress,ALcontractInterface,signer);
+    // const ALcontractInterface = new utils.Interface(ALContractABI.abi);
+    // const ALcontractAddress = '0xb31a21D6Fe5238265BE0c604D3cE477342989AB6';
+    // const provider = new Web3Provider(window.ethereum);
+    // const signer = provider.getSigner();
+    // const ALcontract = new Contract(ALcontractAddress,ALcontractInterface,signer);
     
 
     return (

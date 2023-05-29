@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { useContractFunction } from '@usedapp/core';
 import { Web3Provider } from "@ethersproject/providers";
 import { Contract } from '@ethersproject/contracts';
-import ALContractABI from 'E:/Flight_Delay_Project/flight-delay-insurance-dapps/src/artifacts/contracts/Airline.sol/Airline.json';
+// import ALContractABI from 'D:/学习/课程/大三下/区块链应用设计与开发/项目/Flight-Delay-Project/artifacts/contracts/Airline.sol/Airline.json';
 import { utils } from 'ethers';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,16 +13,16 @@ import 'react-toastify/dist/ReactToastify.css';
     // 航班号对于机票合约地址
     // mapping(string => address) public flightNumberToAddress;
 
-const Update = ()=>{
+const Update = (ALcontract) => {
     
     const flightNumber = useRef()
     const _actualArrivalTime = useRef();
       // 创建合约对象
-    const ALcontractInterface = new utils.Interface(ALContractABI.abi);
-    const ALcontractAddress ='0xb31a21D6Fe5238265BE0c604D3cE477342989AB6';
-    const provider = new Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const ALcontract = new Contract(ALcontractAddress,ALcontractInterface,signer);
+    // const ALcontractInterface = new utils.Interface(ALContractABI.abi);
+    // const ALcontractAddress ='0xb31a21D6Fe5238265BE0c604D3cE477342989AB6';
+    // const provider = new Web3Provider(window.ethereum);
+    // const signer = provider.getSigner();
+    // const ALcontract = new Contract(ALcontractAddress,ALcontractInterface,signer);
     const { send,state } = useContractFunction(ALcontract, '');
 
     const FTUpdate = ()=>{

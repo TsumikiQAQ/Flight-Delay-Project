@@ -16,9 +16,9 @@ const App = () => {
  // require('dotenv').config();
  const { account } = useEthers();
  // 设置合约拥有者地址
- const ownerAddress = '0xB970deaB39cfE184385c75f4B7a666BB632e8F69';
+ const ownerAddress = '0x0dae840A4bf822897957f9BcDf767c96164BEf84';
  // 航空公司地址用于测试 
- const FlightCompanyaddress = '0x00EdCc04a49f162e09FB35538D4157318947A008';
+ const FlightCompanyaddress = '0x0dae840A4bf822897957f9BcDf767c96164BEf84';
 
  // 通过航空公司合约地址、接口创建合约实例对象
  const contractInterface = new utils.Interface(ALContractABI.abi);
@@ -50,8 +50,8 @@ const App = () => {
  两个都不是进入购票界面 */}
  {account === ownerAddress && <AdminPage contract={contract}/>}
  {/* {account === FlightCompanyaddress&& <SelectFlight/>} */}
- {boolair && <SelectFlight/>}
- {account !== ownerAddress && !boolair && account && <UserPage/>}
+ {boolair && <SelectFlight contract={contract}/>}
+ {account !== ownerAddress && !boolair && account && <UserPage contract={contract}/>}
  {!account && (
  <div className="flex justify-center">
  <div className="bg-gray-800 p-8 rounded-3xl filter drop-shadow-xl text-center m-20 w-max">

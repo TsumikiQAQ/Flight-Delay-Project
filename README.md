@@ -5,7 +5,7 @@
 运行 npm install 安装项目所需包
 ![image](https://github.com/TsumikiQAQ/Flight-Delay-Project/assets/116857998/b7f70552-4344-4ae7-85d6-f2c29989550a)
 
-运行 npm hardhat compile 编译项目中的合约文件
+运行 yarn hardhat compile 编译项目中的合约文件
 ![image](https://github.com/TsumikiQAQ/Flight-Delay-Project/assets/116857998/92d16fc0-c6ce-444b-b057-c8f7482e964b)
 
 使用ganache创建一条本地网络

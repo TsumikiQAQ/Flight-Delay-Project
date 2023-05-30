@@ -41,7 +41,7 @@ const App = () => {
       return error.Message;
     });
 
-    return (
+  return (
     <div className="text-white">
       <div className="flex justify-end mt-5 mx-10">
         <WalletConnectButton />

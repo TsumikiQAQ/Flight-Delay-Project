@@ -78,49 +78,53 @@ const AdminPage = ({contract}) => {
         }
     }, [state])
     return (
-        <div className="grid grid-cols-3 gap-4 mt-5 mx-10">
+        <div className="grid grid-cols-5 gap-4 mt-5 mx-10">
             {/* 注册航空公司，将航空公司地址添加到航空公司dao */}
-            <div className="bg-gray-800 p-8 rounded-3xl filter drop-shadow-xl col-span-3">
-                <h1 className="text-center font-bold text-3xl">注册航空公司</h1>
+            {/* <div style={{ display: "flex", justifyContent: "center" }}></div> */}
+            <div className="bg-blue-100 p-8 rounded-3xl filter drop-shadow-xl col-span-3 ">
+                <h1 className="text-center font-bold text-3xl blue-text">注册航空公司</h1>
                 {/* 输入航空公司名字 */}
                 <div className="mt-5">
-                    <label htmlFor="name" className="text-xl mr-5 inline-block text-right w-1/5">航空公司名字</label>
+                    <label htmlFor="name" className="text-xl mr-5 inline-block text-right w-1/5 blue-text">航空公司名字</label>
                     <input ref={airlineName} name="name" type="text" className="text-black border w-3/5 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3"/>
                 </div>
                 {/* 输入航空公司地址 */}
                 <div className="mt-5">
-                    <label htmlFor="address" className="text-xl mr-5 inline-block text-right w-1/5">航空公司地址</label>
+                    <label htmlFor="address" className="text-xl mr-5 inline-block text-right w-1/5 blue-text">航空公司地址</label>
                     <input ref={airlineAddress} name="address" type="text" className="text-black border w-3/5 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3"/>
                 </div>
                 <div className="mt-5">
-                    <label htmlFor="delayRates" className="text-xl mr-5 inline-block text-right w-1/5">航空公司延误率</label>
+                    <label htmlFor="delayRates" className="text-xl mr-5 inline-block text-right w-1/5 blue-text">航空公司延误率</label>
                     <input ref={delayRates} name="delayRates" type="number" className="text-black border w-3/5 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3"/>
                 </div> 
                 <div className="mt-5">
-                    <label htmlFor="cancelRates" className="text-xl mr-5 inline-block text-right w-1/5">航空公司取消率</label>
+                    <label htmlFor="cancelRates" className="text-xl mr-5 inline-block text-right w-1/5 blue-text">航空公司取消率</label>
                     <input ref={cancelRates} name="cancelRates" type="number" className="text-black border w-3/5 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3"/>
                 </div>   
                 {/* 将航空公司添加进dao名单 */}
                 <div className="mt-10 text-center">
-                    <button onClick={addAirlines} className="py-2 px-3 bg-indigo-800 rounded-md text-white text-lg hover:bg-indigo-900">注册</button>
+                    <button onClick={addAirlines} className="py-2 px-3 bg-red-700 rounded-md text-white text-lg hover:bg-red-400">注册</button>
                 </div>
             </div>
-           {/*注销航空公司，将航空公司移除dao组织*/}
-            <div className="bg-gray-800 p-8 rounded-3xl filter drop-shadow-xl col-span-3">
-                <h1 className="text-center font-bold text-3xl">注销航空公司</h1>
+
+            
+            {/*注销航空公司，将航空公司移除dao组织*/}
+            <div style={{ display: "flex", justifyContent: "center" }}></div>
+            <div className="bg-blue-100 p-8 rounded-3xl filter drop-shadow-xl col-span-3">
+                <h1 className="blue-text text-center font-bold text-3xl">注销航空公司</h1>
                 {/* 输入航空公司名字 */}
                 <div className="mt-5">
-                    <label htmlFor="name" className="text-xl mr-5 inline-block text-right w-1/5">航空公司名字</label>
+                    <label htmlFor="name" className="blue-text text-xl mr-5 inline-block text-right w-1/5">航空公司名字</label>
                     <input ref={removeairlineName} name="name" type="text" className="text-black border w-3/5 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3"/>
                 </div>
                 {/* 输入航空公司地址 */}
                 <div className="mt-5">
-                    <label htmlFor="address" className="text-xl mr-5 inline-block text-right w-1/5">航空公司地址</label>
+                    <label htmlFor="address" className="blue-text text-xl mr-5 inline-block text-right w-1/5">航空公司地址</label>
                     <input ref={removeAirlineAddress} name="address" type="text" className="text-black border w-3/5 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3"/>
                 </div>  
                 {/* 将航空公司添加进dao名单 */}
                 <div className="mt-10 text-center">
-                    <button onClick={removeAirlines} className="py-2 px-3 bg-indigo-800 rounded-md text-white text-lg hover:bg-indigo-900">注销</button>
+                    <button onClick={removeAirlines} className="py-2 px-3 bg-red-700 rounded-md text-white text-lg hover:bg-red-400">注销</button>
                 </div>
                 
             </div>

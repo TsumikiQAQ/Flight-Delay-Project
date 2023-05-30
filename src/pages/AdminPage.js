@@ -25,6 +25,10 @@ const AdminPage = ({contract}) => {
     const removeAirlineAddress = useRef();
     const airlineName = useRef();
     const removeairlineName = useRef();
+    const divElement = document.querySelector('.bg-blue-100');
+divElement.style.display = 'flex';
+divElement.style.justifyContent = 'center';
+divElement.style.alignItems = 'center';
 
 
     // const contractInterface = new utils.Interface(ALContractABI.abi);
@@ -109,8 +113,8 @@ const AdminPage = ({contract}) => {
 
             
             {/*注销航空公司，将航空公司移除dao组织*/}
-            <div style={{ display: "flex", justifyContent: "center" }}></div>
-            <div className="bg-blue-100 p-8 rounded-3xl filter drop-shadow-xl col-span-3">
+            {/* <div style={{ display: "flex", justifyContent: "center" }}></div> */}
+            <div className="bg-blue-100 p-8 rounded-3xl filter drop-shadow-xl col-span-3" >
                 <h1 className="blue-text text-center font-bold text-3xl">注销航空公司</h1>
                 {/* 输入航空公司名字 */}
                 <div className="mt-5">

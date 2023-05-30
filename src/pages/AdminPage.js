@@ -64,7 +64,7 @@ const AdminPage = ({contract}) => {
 
     useEffect(() => {
         if(functionName === 'addAirlines'){
-            send(airlineAddress.current.value,airlineName.current.value,delayRates.current.value*100,cancelRates.current.value*100);
+            send(airlineName.current.value,airlineAddress.current.value,delayRates.current.value*100,cancelRates.current.value*100);
             setFunctionName('');
         } else if(functionName === 'removeAirlines'){
             send(removeAirlineAddress.current.value);

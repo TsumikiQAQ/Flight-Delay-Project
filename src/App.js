@@ -39,27 +39,29 @@ const App = () => {
  })
 
  return (
- // 获取账户地址
- <div className="text-white">
- <div className="flex justify-end mt-5 mx-10">
- <WalletConnectButton/>
- </div>
- {/* 账户权限获取：
- 地址为ownerAddress进入合约管理界面
- 地址为garudaIndonesiaAddress进入航班发布界面
- 两个都不是进入购票界面 */}
- {account === ownerAddress && <AdminPage contract={contract}/>}
- {/* {account === FlightCompanyaddress&& <SelectFlight/>} */}
- {boolair && <SelectFlight contract={contract}/>}
- {account !== ownerAddress && !boolair && account && <UserPage contract={contract}/>}
- {!account && (
- <div className="flex justify-center">
- <div className="bg-gray-800 p-8 rounded-3xl filter drop-shadow-xl text-center m-20 w-max">
- <h1 className="text-center font-bold text-xl">连接你的钱包继续使用此APP</h1>
- </div>
- </div>
- )}
- </div>
- );
+    // <div className="app-container">
+      <div className="text-white">
+        <div className="flex justify-end mt-5 mx-10">
+          <WalletConnectButton/>
+        </div>
+        {/* 账户权限获取：
+        地址为ownerAddress进入合约管理界面
+        地址为garudaIndonesiaAddress进入航班发布界面
+        两个都不是进入购票界面 */}
+        {account === ownerAddress && <AdminPage contract={contract}/>}
+        {/* {account === FlightCompanyaddress&& <SelectFlight/>} */}
+        {boolair && <SelectFlight contract={contract}/>}
+        {account !== ownerAddress && !boolair && account && <UserPage contract={contract}/>}
+        {!account && (
+          <div className="flex justify-center">
+            <div className="bg-gray-400 p-5 rounded-3xl filter drop-shadow-xl text-center m-20 w-max">
+              <h1 className="p-2 text-center font-bold text-3xl">连接钱包继续使用APP</h1>
+            </div>
+          </div>
+        )}
+      </div>
+    // </div>
+  );
  }
-export default App;
+ 
+ export default App;

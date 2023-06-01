@@ -2,8 +2,6 @@ import { useRef, useState, useEffect } from 'react';
 import { useContractFunction } from '@usedapp/core';
 import { Web3Provider } from "@ethersproject/providers";
 import { Contract } from '@ethersproject/contracts';
-// import ALContractABI from 'D:/学习/课程/大三下/区块链应用设计与开发/项目/Flight-Delay-Project/artifacts/contracts/Airline.sol/Airline.json';
-import { utils } from 'ethers';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
     // /**
@@ -13,22 +11,22 @@ import 'react-toastify/dist/ReactToastify.css';
     // 航班号对于机票合约地址
     // mapping(string => address) public flightNumberToAddress;
 
-const Update = (ALcontract) => {
+const Update = ({contractAddress,contractInterface})=>{
     
     const flightNumber = useRef()
     const _actualArrivalTime = useRef();
       // 创建合约对象
-    // const ALcontractInterface = new utils.Interface(ALContractABI.abi);
-    // const ALcontractAddress ='0xb31a21D6Fe5238265BE0c604D3cE477342989AB6';
-    // const provider = new Web3Provider(window.ethereum);
-    // const signer = provider.getSigner();
-    // const ALcontract = new Contract(ALcontractAddress,ALcontractInterface,signer);
-    const { send,state } = useContractFunction(ALcontract, '');
+
+     const provider = new Web3Provider(window.ethereum)
+     const signer = provider.getSigner()
+     const contract = new Contract(contractAddress, contractInterface,signer);
+    
+    const { send,state } = useContractFunction(contract, '');
 
     const FTUpdate = ()=>{
         // 更新机票信息
         const arrtime = new Date(_actualArrivalTime.current.value).getTime()/1000
-    ALcontract.functions.update(flightNumber.current.value,arrtime).then(()=>{
+    contract.functions.update(flightNumber.current.value,arrtime).then(()=>{
     })
     }
     useEffect(() => {

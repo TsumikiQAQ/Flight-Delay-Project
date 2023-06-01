@@ -1,6 +1,6 @@
 import { useRef } from "react"
 
-const SelectFlight = ()=>{
+const SelectFlight = (contract)=>{
     // 购买保险：选择保险类型、输入身份证号
     const departplace = useRef()
     const arriveplace = useRef()

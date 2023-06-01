@@ -1,21 +1,35 @@
-import { useRef } from "react"
-import ALContractABI from 'E:/Flight_Delay_Project/flight-delay-insurance-dapps/src/artifacts/contracts/Airline.sol/Airline.json';
+import { useRef } from "react";
+import axios from 'axios';
 import { utils } from 'ethers';
 import { Contract } from '@ethersproject/contracts';
 import { Web3Provider } from "@ethersproject/providers";
 
 
-const SelectFlight = ()=>{
+const SelectFlight = (ALcontract)=>{
     // 输入出发地、目的地、出发时间查询机票->
     const departplace = useRef()
     const arriveplace = useRef()
     const departtime = useRef()
-    const ALcontractInterface = new utils.Interface(ALContractABI.abi);
-    const ALcontractAddress = '0xb31a21D6Fe5238265BE0c604D3cE477342989AB6';
-    const provider = new Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const ALcontract = new Contract(ALcontractAddress,ALcontractInterface,signer);
-    
+    async function selectFlight(){
+    const departPlace = departplace.current.value;
+    const arrivePlace = arriveplace.current.value;
+    const departTime = departtime.current.value;
+    let dataarr;
+    await axios.post('/selectFlight', {
+      departPlace,
+      arrivePlace,
+      departTime
+    })
+    .then(response => {
+      // 处理响应数据
+     dataarr =  response.data;
+    })
+    .catch(error => {
+      // 处理错误
+      console.error(error);
+    });
+}
+   
 
     return (
         
@@ -33,7 +47,7 @@ const SelectFlight = ()=>{
                     <label htmlFor="arrive" className="text-xl mr-5 inline-block text-right w-1/4">出发时间</label>
                     <input ref={departtime } name="arrive" type="datetime-local" className="text-black border w-1/2 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3"/>
                     <div className="text-center mt-10">
-                    <button onClick={''} className="py-2 px-3 bg-indigo-800 rounded-md text-white text-lg hover:bg-indigo-900">查询</button>
+                    <button onClick={selectFlight} className="py-2 px-3 bg-indigo-800 rounded-md text-white text-lg hover:bg-indigo-900">查询</button>
                 </div>
                 </div>
                 

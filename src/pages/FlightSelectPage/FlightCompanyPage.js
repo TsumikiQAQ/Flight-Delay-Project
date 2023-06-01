@@ -1,13 +1,11 @@
 import { useRef, useState, useEffect,useCallback  } from 'react';
-import { Web3Provider } from "@ethersproject/providers";
-import { useContractFunction } from '@usedapp/core';
-import { Contract } from '@ethersproject/contracts';
-import ALContractABI from 'E:/Flight_Delay_Project/flight-delay-insurance-dapps/src/artifacts/contracts/Airline.sol/Airline.json';
 import { utils } from 'ethers';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Web3Provider } from "@ethersproject/providers";
+import { Contract } from '@ethersproject/contracts';
 
-const FlightCompanyPage = () => {
+const FlightCompanyPage = ({contractAddress,contractInterface}) => {
  
     //  /**
     //  * @dev 发布机票合约(msg.value必须大于_totalSeat * _ticketPrice / 2)
@@ -27,15 +25,14 @@ const FlightCompanyPage = () => {
     const departurePoint = useRef()
     const destinationPoint = useRef()
 
-  
-    const contractInterface = new utils.Interface(ALContractABI.abi);
-    const contractAddress ='0xb31a21D6Fe5238265BE0c604D3cE477342989AB6';
-    const provider = new Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
+    // 创建合约对象
+    const provider = new Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
     const contract = new Contract(contractAddress, contractInterface,signer);
-
-    const { send,state } = useContractFunction(contract, 'releaseFlight');
-    const callContractFunction = useCallback(() => {
+  
+  
+    console.log(contract);
+    const releaseFlight = async()=>{
         // 检查 contract 对象是否存在
         if (!contract) {
           console.error("合约对象为空！");
@@ -72,33 +69,33 @@ const FlightCompanyPage = () => {
           toast.error("请输入一个正确的票价！");
           return;
         }const departurePointValue = departurePoint.current.value;
-        if (!departurePoint) {
+        if (!departurePointValue) {
           toast.error("请输入出发地！");
           return;
         }const destinationPointValue = destinationPoint.current.value;
-        if (!destinationPoint) {
+        if (!destinationPointValue) {
           toast.error("请输入目的地！");
           return;
+        } else{
+          try{
+            const result =  await contract.releaseFlight(
+              totalSeatValue,
+              departureTimeValue ,
+              scheduledArrivalTimeValue,
+              utils.parseEther(ticketPriceValue.toString()),
+              departurePointValue,
+              destinationPointValue,
+              flightNumberValue,{
+                value: utils.parseEther((ticketPriceValue*totalSeatValue/2).toString())
+              })
+              console.log(result);
+          }catch(error){
+            console.log(error);
+        toast.error(error.message);
+          }
         }
-    
-        // 调用合约函数，并传入参数，注意要把机票价格转换为 wei 单位
-        send(
-          totalSeatValue,
-          departureTimeValue ,
-          scheduledArrivalTimeValue,
-          utils.parseEther(ticketPriceValue.toString()),
-          departurePointValue,
-          destinationPointValue,
-          flightNumberValue,
-         {value: utils.parseEther((ticketPriceValue*totalSeatValue/2).toString())})
-      }, [send]);
+    }
 
-    useEffect(() => {
-        if(state.errorMessage){
-            toast.error(state.errorMessage);
-        }
-    }, [state])
-    
 
     return (
         <div className="grid grid-cols-2 gap-4 mt-5 mx-10">
@@ -135,7 +132,7 @@ const FlightCompanyPage = () => {
                 </div>
                 
                 <div className="text-center mt-10">
-                    <button onClick={callContractFunction} className="py-2 px-3 bg-indigo-800 rounded-md text-white text-lg hover:bg-indigo-900">提交</button>
+                    <button onClick={releaseFlight} className="py-2 px-3 bg-indigo-800 rounded-md text-white text-lg hover:bg-indigo-900">提交</button>
                 </div>
             </div>
             <ToastContainer

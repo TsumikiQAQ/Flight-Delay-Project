@@ -1,10 +1,25 @@
 import { useRef } from "react"
+import axios from 'axios';
+import { useEthers } from "@usedapp/core";
 
-const SelectFlight = ()=>{
+const ReturnTicketdata = (contract)=>{
     // 查看自己购买的机票和保险（可退票）
-    const departplace = useRef()
-    const arriveplace = useRef()
-    const departtime = useRef()
+    const { account } = useEthers();
+
+    let dataarr;
+    axios.post('/selectTicket', {
+      account
+    })
+    .then(response => {
+      // 处理响应数据
+     dataarr =  response.data;
+    })
+    .catch(error => {
+      // 处理错误
+      console.error(error);
+    });
+  
+
 
 
     return (
@@ -12,4 +27,4 @@ const SelectFlight = ()=>{
     )
 }
 
-export default  SelectFlight
+export default  ReturnTicketdata

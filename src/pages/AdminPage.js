@@ -1,11 +1,10 @@
-import { useContractFunction} from "@usedapp/core";
-import { Web3Provider } from "@ethersproject/providers";
+import { useContractFunction } from "@usedapp/core";
 import { utils } from 'ethers';
 import { useRef, useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const AdminPage = ({contract}) => {
+const AdminPage = ({ contract }) => {
     //  /**
     //  * @dev 添加航空公司
     //  * @param _airlineCompany 航空公司的地址
@@ -17,8 +16,8 @@ const AdminPage = ({contract}) => {
     //   * @param _airlineCompany 航空公司的地址
     //   */
     //  function removeAirlines(address _airlineCompany) external;
-    
- console.log(contract);
+
+    console.log(contract);
     const delayRates = useRef();
     const cancelRates = useRef();
     const airlineAddress = useRef();
@@ -26,18 +25,12 @@ const AdminPage = ({contract}) => {
     const airlineName = useRef();
     const removeairlineName = useRef();
 
-
-    // const contractInterface = new utils.Interface(ALContractABI.abi);
-    // const contractAddress ='0x620E06BCD8437dee974f1d8e4cE33AeC73A8563f';
-    // const provider = new Web3Provider(window.ethereum);
-    // const signer = provider.getSigner();
-    // const contract = new Contract(contractAddress,contractInterface,signer);
-    // const contract = new Contract(contractAddress,contractInterface)
     const [functionName, setFunctionName] = useState('');
-    const {state, send} = useContractFunction(contract, functionName);
+    const { state, send } = useContractFunction(contract, functionName);
 
     const addAirlines = () =>{
         const address = airlineAddress.current.value;
+        console.log(address);
         if(!utils.isAddress(address)){
             console.log(address);
             toast.error("请输入一个正确的地址值!");
@@ -51,6 +44,7 @@ const AdminPage = ({contract}) => {
            setFunctionName('addAirlines')
         }
     }
+
     const removeAirlines = () =>{
         if(!utils.isAddress(removeAirlineAddress.current.value)){
             toast.error("请输入一个正确的地址值!");
@@ -60,70 +54,83 @@ const AdminPage = ({contract}) => {
             setFunctionName('removeAirlines')
         }
     }
+    const getContractBlance = ()=>{
+        contract.functions.getContractBalance().then((blance)=> console.log(blance))
+    }
 
 
     useEffect(() => {
         if(functionName === 'addAirlines'){
-            send(airlineAddress.current.value,airlineName.current.value,delayRates.current.value*100,cancelRates.current.value*100);
+            console.log(airlineAddress.current.value, airlineName.current.value, delayRates.current.value * 100, cancelRates.current.value * 100);
+            send(airlineName.current.value,airlineAddress.current.value,delayRates.current.value*100,cancelRates.current.value*100);
             setFunctionName('');
         } else if(functionName === 'removeAirlines'){
             send(removeAirlineAddress.current.value);
             setFunctionName('');
-        }
-    }, [functionName, send])
+        } 
+    }, [functionName, send]
+    )
 
     useEffect(() => {
-        if(state.errorMessage){
+        if (state.errorMessage) {
             toast.error(state.errorMessage);
         }
     }, [state])
     return (
-        <div className="grid grid-cols-3 gap-4 mt-5 mx-10">
+        <div className="grid grid-cols-5 gap-4 mt-5 mx-10 ">
+                        <div className="mt-10 text-center">
+                    <button onClick={getContractBlance} className="py-2 px-3 bg-indigo-800 rounded-md text-white text-lg hover:bg-indigo-900">获取余额</button>
+                </div>
             {/* 注册航空公司，将航空公司地址添加到航空公司dao */}
-            <div className="bg-gray-800 p-8 rounded-3xl filter drop-shadow-xl col-span-3">
-                <h1 className="text-center font-bold text-3xl">注册航空公司</h1>
+            {/* <CenteredDiv> */}
+            <div className="bg-blue-100 p-8 rounded-3xl filter drop-shadow-xl col-span-5" style={{ width: '900px', margin: '0 auto' }}>
+                <h1 className="text-center font-bold text-3xl blue-text">注册航空公司</h1>
                 {/* 输入航空公司名字 */}
                 <div className="mt-5">
-                    <label htmlFor="name" className="text-xl mr-5 inline-block text-right w-1/5">航空公司名字</label>
-                    <input ref={airlineName} name="name" type="text" className="text-black border w-3/5 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3"/>
+                    <label htmlFor="name" className="text-xl mr-5 inline-block text-right w-1/5 blue-text">航空公司名称</label>
+                    <input ref={airlineName} name="name" type="text" className="text-black border w-2/3 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3" placeholder="请输入您的航空公司名称" />
                 </div>
                 {/* 输入航空公司地址 */}
                 <div className="mt-5">
-                    <label htmlFor="address" className="text-xl mr-5 inline-block text-right w-1/5">航空公司地址</label>
-                    <input ref={airlineAddress} name="address" type="text" className="text-black border w-3/5 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3"/>
+                    <label htmlFor="address" className="text-xl mr-5 inline-block text-right w-1/5 blue-text">航空公司地址</label>
+                    <input ref={airlineAddress} name="address" type="text" className="text-black border w-2/3 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3" placeholder="请输入您的航空公司地址" />
                 </div>
                 <div className="mt-5">
-                    <label htmlFor="delayRates" className="text-xl mr-5 inline-block text-right w-1/5">航空公司延误率</label>
-                    <input ref={delayRates} name="delayRates" type="number" className="text-black border w-3/5 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3"/>
-                </div> 
+                    <label htmlFor="delayRates" className="text-xl mr-5 inline-block text-right w-1/5 blue-text">航空公司延误率</label>
+                    <input ref={delayRates} name="delayRates" type="number" className="text-black border w-2/3 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3" placeholder="请输入您的航空公司延误率" />
+                </div>
                 <div className="mt-5">
-                    <label htmlFor="cancelRates" className="text-xl mr-5 inline-block text-right w-1/5">航空公司取消率</label>
-                    <input ref={cancelRates} name="cancelRates" type="number" className="text-black border w-3/5 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3"/>
-                </div>   
+                    <label htmlFor="cancelRates" className="text-xl mr-5 inline-block text-right w-1/5 blue-text">航空公司取消率</label>
+                    <input ref={cancelRates} name="cancelRates" type="number" className="text-black border w-2/3 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3" placeholder="请输入您的航空公司取消率" />
+                </div>
                 {/* 将航空公司添加进dao名单 */}
                 <div className="mt-10 text-center">
-                    <button onClick={addAirlines} className="py-2 px-3 bg-indigo-800 rounded-md text-white text-lg hover:bg-indigo-900">注册</button>
+                    <button onClick={addAirlines} className="py-2 px-3 bg-red-700 rounded-md text-white text-lg hover:bg-red-400">注册</button>
                 </div>
             </div>
-           {/*注销航空公司，将航空公司移除dao组织*/}
-            <div className="bg-gray-800 p-8 rounded-3xl filter drop-shadow-xl col-span-3">
-                <h1 className="text-center font-bold text-3xl">注销航空公司</h1>
+            {/* </CenteredDiv> */}
+
+            {/*注销航空公司，将航空公司移除dao组织*/}
+            {/* <CenteredDiv> */}
+            <div className="bg-blue-100 p-8 rounded-3xl filter drop-shadow-xl col-span-5" style={{ width: '900px', margin: '0 auto' }}>
+                <h1 className="blue-text text-center font-bold text-3xl">注销航空公司</h1>
                 {/* 输入航空公司名字 */}
                 <div className="mt-5">
-                    <label htmlFor="name" className="text-xl mr-5 inline-block text-right w-1/5">航空公司名字</label>
-                    <input ref={removeairlineName} name="name" type="text" className="text-black border w-3/5 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3"/>
+                    <label htmlFor="name" className="blue-text text-xl mr-5 inline-block text-right w-1/5">航空公司名字</label>
+                    <input ref={removeairlineName} name="name" type="text" className="text-black border w-2/3 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3" placeholder="请输入您要注销的航空公司名称" />
                 </div>
                 {/* 输入航空公司地址 */}
                 <div className="mt-5">
-                    <label htmlFor="address" className="text-xl mr-5 inline-block text-right w-1/5">航空公司地址</label>
-                    <input ref={removeAirlineAddress} name="address" type="text" className="text-black border w-3/5 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3"/>
-                </div>  
+                    <label htmlFor="address" className="blue-text text-xl mr-5 inline-block text-right w-1/5">航空公司地址</label>
+                    <input ref={removeAirlineAddress} name="address" type="text" className="text-black border w-2/3 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3" placeholder="请输入您要注销的航空公司地址" />
+                </div>
                 {/* 将航空公司添加进dao名单 */}
                 <div className="mt-10 text-center">
-                    <button onClick={removeAirlines} className="py-2 px-3 bg-indigo-800 rounded-md text-white text-lg hover:bg-indigo-900">注销</button>
+                    <button onClick={removeAirlines} className="py-2 px-3 bg-red-700 rounded-md text-white text-lg hover:bg-red-400">注销</button>
                 </div>
-                
             </div>
+            {/* </CenteredDiv> */}
+
             <ToastContainer
                 position="bottom-right"
                 autoClose={5000}

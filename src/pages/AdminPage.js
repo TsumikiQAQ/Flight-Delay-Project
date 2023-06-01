@@ -28,46 +28,46 @@ const AdminPage = ({ contract }) => {
     const [functionName, setFunctionName] = useState('');
     const { state, send } = useContractFunction(contract, functionName);
 
-    const addAirlines = () =>{
+    const addAirlines = () => {
         const address = airlineAddress.current.value;
         console.log(address);
-        if(!utils.isAddress(address)){
+        if (!utils.isAddress(address)) {
             console.log(address);
             toast.error("请输入一个正确的地址值!");
-        } else if(!airlineName.current.value) {
+        } else if (!airlineName.current.value) {
             toast.error("航空公司名称不能为空!")
-        }else if(!delayRates.current.value || delayRates.current.value<0 || delayRates.current.value>=100) {
+        } else if (!delayRates.current.value || delayRates.current.value < 0 || delayRates.current.value >= 100) {
             toast.error("延误率不能为空且在0-100之间!")
-        }else if(!cancelRates.current.value || cancelRates.current.value<0 || cancelRates.current.value>=100 ) {
+        } else if (!cancelRates.current.value || cancelRates.current.value < 0 || cancelRates.current.value >= 100) {
             toast.error("取消率不能为空且在0-100之间!")
-        }else{
-           setFunctionName('addAirlines')
+        } else {
+            setFunctionName('addAirlines')
         }
     }
 
-    const removeAirlines = () =>{
-        if(!utils.isAddress(removeAirlineAddress.current.value)){
+    const removeAirlines = () => {
+        if (!utils.isAddress(removeAirlineAddress.current.value)) {
             toast.error("请输入一个正确的地址值!");
-        } else if(!removeairlineName.current.value) {
+        } else if (!removeairlineName.current.value) {
             toast.error("航空公司名称不能为空!")
-        }else{
+        } else {
             setFunctionName('removeAirlines')
         }
     }
-    const getContractBlance = ()=>{
-        contract.functions.getContractBalance().then((blance)=> console.log(blance))
+    const getContractBlance = () => {
+        contract.functions.getContractBalance().then((blance) => console.log(blance))
     }
 
 
     useEffect(() => {
-        if(functionName === 'addAirlines'){
+        if (functionName === 'addAirlines') {
             console.log(airlineAddress.current.value, airlineName.current.value, delayRates.current.value * 100, cancelRates.current.value * 100);
-            send(airlineName.current.value,airlineAddress.current.value,delayRates.current.value*100,cancelRates.current.value*100);
+            send(airlineName.current.value, airlineAddress.current.value, delayRates.current.value * 100, cancelRates.current.value * 100);
             setFunctionName('');
-        } else if(functionName === 'removeAirlines'){
+        } else if (functionName === 'removeAirlines') {
             send(removeAirlineAddress.current.value);
             setFunctionName('');
-        } 
+        }
     }, [functionName, send]
     )
 
@@ -77,10 +77,12 @@ const AdminPage = ({ contract }) => {
         }
     }, [state])
     return (
-        <div className="grid grid-cols-5 gap-4 mt-5 mx-10 ">
-                        <div className="mt-10 text-center">
-                    <button onClick={getContractBlance} className="py-2 px-3 bg-indigo-800 rounded-md text-white text-lg hover:bg-indigo-900">获取余额</button>
+        <div className="grid grid-cols-1  mt-5 mx-10 ">
+            <div className="mt-10 text-center">
+                <div className="flex bg-blue-100 p-2 rounded-2xl" style={{float: "right", width: "114px", justifyContent: "flex-end", marginTop: "-50px" }}>
+                    <button onClick={getContractBlance} style={{ float: "right" ,width: "96px"}} className="p-4 bg-gradient-to-r from-red-700 to-red-700 text-white text-lg font-bold rounded-xl hover:from-purple-400 hover:to-pink-400" >查&nbsp;&nbsp;询<br />余&nbsp;&nbsp;额</button>
                 </div>
+            </div>
             {/* 注册航空公司，将航空公司地址添加到航空公司dao */}
             {/* <CenteredDiv> */}
             <div className="bg-blue-100 p-8 rounded-3xl filter drop-shadow-xl col-span-5" style={{ width: '900px', margin: '0 auto' }}>
@@ -105,7 +107,7 @@ const AdminPage = ({ contract }) => {
                 </div>
                 {/* 将航空公司添加进dao名单 */}
                 <div className="mt-10 text-center">
-                    <button onClick={addAirlines} className="py-2 px-3 bg-red-700 rounded-md text-white text-lg hover:bg-red-400">注册</button>
+                    <button onClick={addAirlines} className="font-bold py-2 px-5 bg-red-700 rounded-md text-white text-lg hover:bg-red-400">注&nbsp;册</button>
                 </div>
             </div>
             {/* </CenteredDiv> */}
@@ -126,7 +128,7 @@ const AdminPage = ({ contract }) => {
                 </div>
                 {/* 将航空公司添加进dao名单 */}
                 <div className="mt-10 text-center">
-                    <button onClick={removeAirlines} className="py-2 px-3 bg-red-700 rounded-md text-white text-lg hover:bg-red-400">注销</button>
+                    <button onClick={removeAirlines} className="font-bold py-2 px-5 bg-red-700 rounded-md text-white text-lg hover:bg-red-400">注&nbsp;销</button>
                 </div>
             </div>
             {/* </CenteredDiv> */}
@@ -141,7 +143,7 @@ const AdminPage = ({ contract }) => {
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
-                />
+            />
         </div>
     );
 }

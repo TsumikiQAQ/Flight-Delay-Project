@@ -36,22 +36,31 @@ const Update = ({contractAddress,contractInterface})=>{
     }, [state])
 
 return(
+    
 <div className="">
-      {/* 发布航班延误信息 */}
-      <div className="bg-gray-800 p-8 rounded-3xl filter drop-shadow-xl">
-      <h1 className="text-center font-bold text-xl">更新机票详情</h1>
-      <div className="mt-5">
-          <label htmlFor="flight_id" className="text-xl mr-5 inline-block text-right w-1/4">航班编号</label>
-          <input ref={flightNumber} name="flight_id" type="text" className="text-black border w-1/2 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3"/>      
-          </div>
-      <div className="mt-5">
-          <label htmlFor="reason" className="text-xl mr-5 inline-block text-right w-1/4">实际到达时间</label>
-          <input ref={_actualArrivalTime} name="flight_id" type="datetime-local" className="text-black border w-1/2 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3"/>
-      </div>
-      <div className="text-center mt-10">
-          <button onClick={FTUpdate} className="py-2 px-3 bg-indigo-800 rounded-md text-white text-lg hover:bg-indigo-900">更新</button>
-      </div>
-  </div>
+          {/* 更新航班延误信息 */}
+<div className="container position-relative wow fadeInUp" data-wow-delay="0.1s" style={{"marginTop" : "1rem"}}>
+            <div className="row justify-content-center">
+                <div className="col-lg-8">
+                    <div className="bg-light text-center p-5">
+                        <h1 className="mb-4">更新机票详情</h1>
+                            <div className="row g-3">
+                                <div className="col-12 col-sm-6">
+                                    <input ref={flightNumber} type="text" className="form-control border-0" placeholder="航班编号" style={{height: "55px"}}/>
+                                </div>
+                                <div className="col-12 col-sm-6">
+                                    <div className="date">
+                                        <input ref={_actualArrivalTime} type="datetime-local" placeholder="实际到达时间"  style={{height: "55px"}}/>
+                                    </div>
+                                </div>
+                                <div className="col-12">
+                                    <button  onClick={FTUpdate} className="btn btn-primary w-100 py-3" type="submit">查询</button>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
   <ToastContainer
       position="bottom-right"
       autoClose={5000}

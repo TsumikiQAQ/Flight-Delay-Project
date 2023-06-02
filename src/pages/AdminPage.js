@@ -77,60 +77,57 @@ const AdminPage = ({ contract }) => {
         }
     }, [state])
     return (
-        <div className="grid grid-cols-5 gap-4 mt-5 mx-10 ">
-                        <div className="mt-10 text-center">
-                    <button onClick={getContractBlance} className="py-2 px-3 bg-indigo-800 rounded-md text-white text-lg hover:bg-indigo-900">获取余额</button>
-                </div>
-            {/* 注册航空公司，将航空公司地址添加到航空公司dao */}
-            {/* <CenteredDiv> */}
-            <div className="bg-blue-100 p-8 rounded-3xl filter drop-shadow-xl col-span-5" style={{ width: '900px', margin: '0 auto' }}>
-                <h1 className="text-center font-bold text-3xl blue-text">注册航空公司</h1>
-                {/* 输入航空公司名字 */}
-                <div className="mt-5">
-                    <label htmlFor="name" className="text-xl mr-5 inline-block text-right w-1/5 blue-text">航空公司名称</label>
-                    <input ref={airlineName} name="name" type="text" className="text-black border w-2/3 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3" placeholder="请输入您的航空公司名称" />
-                </div>
-                {/* 输入航空公司地址 */}
-                <div className="mt-5">
-                    <label htmlFor="address" className="text-xl mr-5 inline-block text-right w-1/5 blue-text">航空公司地址</label>
-                    <input ref={airlineAddress} name="address" type="text" className="text-black border w-2/3 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3" placeholder="请输入您的航空公司地址" />
-                </div>
-                <div className="mt-5">
-                    <label htmlFor="delayRates" className="text-xl mr-5 inline-block text-right w-1/5 blue-text">航空公司延误率</label>
-                    <input ref={delayRates} name="delayRates" type="number" className="text-black border w-2/3 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3" placeholder="请输入您的航空公司延误率" />
-                </div>
-                <div className="mt-5">
-                    <label htmlFor="cancelRates" className="text-xl mr-5 inline-block text-right w-1/5 blue-text">航空公司取消率</label>
-                    <input ref={cancelRates} name="cancelRates" type="number" className="text-black border w-2/3 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3" placeholder="请输入您的航空公司取消率" />
-                </div>
-                {/* 将航空公司添加进dao名单 */}
-                <div className="mt-10 text-center">
-                    <button onClick={addAirlines} className="py-2 px-3 bg-red-700 rounded-md text-white text-lg hover:bg-red-400">注册</button>
+        <div>
+             <div className="container position-relative wow fadeInUp" data-wow-delay="0.1s" style={{"marginTop" : "1rem"}}>
+            <div className="row justify-content-center">
+                <div className="col-lg-8">
+                    <div className="bg-light text-center p-5">
+                        <h1 className="mb-4">注册航空公司</h1>
+                            <div className="row g-3">
+                            <div className="col-12 col-sm-6">
+                                    <input ref={airlineName} type="text" className="form-control border-0" placeholder="航空公司名称" style={{height: "55px"}}/>
+                                </div> 
+                                <div className="col-12 col-sm-6">
+                                    <input ref={airlineAddress} type="text" className="form-control border-0" placeholder="航空公司地址" style={{height: "55px"}}/>
+                                </div> 
+                                <div className="col-12 col-sm-6">
+                                    <input ref={delayRates} type="text" className="form-control border-0" placeholder="航空公司延误率" style={{height: "55px"}}/>
+                                </div>
+                                <div className="col-12 col-sm-6">
+                                    <input ref={cancelRates} type="text" className="form-control border-0" placeholder="航空公司取消率" style={{height: "55px"}}/>
+                                </div> 
+                                <div className="col-12">
+                                    <button  onClick={addAirlines} className="btn btn-primary w-100 py-3" type="submit">注册</button>
+                                </div>
+                            </div>
+                    </div>
                 </div>
             </div>
-            {/* </CenteredDiv> */}
+        </div>  
+               {/* 注册航空公司，将航空公司地址添加到航空公司dao */}
+     
 
             {/*注销航空公司，将航空公司移除dao组织*/}
-            {/* <CenteredDiv> */}
-            <div className="bg-blue-100 p-8 rounded-3xl filter drop-shadow-xl col-span-5" style={{ width: '900px', margin: '0 auto' }}>
-                <h1 className="blue-text text-center font-bold text-3xl">注销航空公司</h1>
-                {/* 输入航空公司名字 */}
-                <div className="mt-5">
-                    <label htmlFor="name" className="blue-text text-xl mr-5 inline-block text-right w-1/5">航空公司名字</label>
-                    <input ref={removeairlineName} name="name" type="text" className="text-black border w-2/3 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3" placeholder="请输入您要注销的航空公司名称" />
-                </div>
-                {/* 输入航空公司地址 */}
-                <div className="mt-5">
-                    <label htmlFor="address" className="blue-text text-xl mr-5 inline-block text-right w-1/5">航空公司地址</label>
-                    <input ref={removeAirlineAddress} name="address" type="text" className="text-black border w-2/3 rounded-xl focus:outline-none focus:border-indigo-500 mt-5 py-1 px-3" placeholder="请输入您要注销的航空公司地址" />
-                </div>
-                {/* 将航空公司添加进dao名单 */}
-                <div className="mt-10 text-center">
-                    <button onClick={removeAirlines} className="py-2 px-3 bg-red-700 rounded-md text-white text-lg hover:bg-red-400">注销</button>
+            <div className="container position-relative wow fadeInUp" data-wow-delay="0.1s" style={{"marginTop" : "1rem"}}>
+            <div className="row justify-content-center">
+                <div className="col-lg-8">
+                    <div className="bg-light text-center p-5">
+                        <h1 className="mb-4">注销航空公司</h1>
+                            <div className="row g-3">
+                            <div className="col-12 col-sm-6">
+                                    <input ref={airlineName} type="text" className="form-control border-0" placeholder="航空公司名称" style={{height: "55px"}}/>
+                                </div> 
+                                <div className="col-12 col-sm-6">
+                                    <input ref={airlineAddress} type="text" className="form-control border-0" placeholder="航空公司地址" style={{height: "55px"}}/>
+                                </div> 
+                                <div className="col-12">
+                                    <button  onClick={removeAirlines} className="btn btn-primary w-100 py-3" type="submit">注销</button>
+                                </div>
+                            </div>
+                    </div>
                 </div>
             </div>
-            {/* </CenteredDiv> */}
-
+        </div>  
             <ToastContainer
                 position="bottom-right"
                 autoClose={5000}

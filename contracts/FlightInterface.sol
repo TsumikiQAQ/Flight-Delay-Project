@@ -35,14 +35,14 @@ interface FlightInterface {
 
     // 买票，退票事件
     event TicketPurchased(
-        address indexed user,
-        uint256 indexed flightNumber,
+        address  user,
+        uint256  flightNumber,
         string customer,
         uint24 seat
     );
     event TicketRefund(
-        address indexed user,
-        uint256 indexed flightNumber,
+        address  user,
+        uint256  flightNumber,
         string customer,
         uint24 seat
     );

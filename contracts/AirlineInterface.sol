@@ -4,8 +4,8 @@ pragma solidity ^0.8.17;
 interface AirlineInterface {
     // 发布航班事件
     event TicketIssued(
-        address indexed airlineCompany,
-        uint256 indexed flightNumber,
+        address  airlineCompany,
+        uint256  flightNumber,
         string from,
         string to,
         uint32 departureTime,

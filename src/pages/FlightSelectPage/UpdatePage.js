@@ -1,9 +1,11 @@
 import { useRef, useState, useEffect } from 'react';
-import { useContractFunction } from '@usedapp/core';
 import { Web3Provider } from "@ethersproject/providers";
 import { Contract } from '@ethersproject/contracts';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import FTcontractInterface from '../../artifacts/contracts/Flight.sol/Flight.json'
+import IAcontractInterface from '../../artifacts/contracts/Insurance.sol/Insurance.json'
+
     // /**
     //  * @dev 由航空公司上传航班实际到达时间
     //  * @param _actualArrivalTime 实际到达时间
@@ -11,30 +13,61 @@ import 'react-toastify/dist/ReactToastify.css';
     // 航班号对于机票合约地址
     // mapping(string => address) public flightNumberToAddress;
 
-const Update = ({contractAddress,contractInterface})=>{
+const Update = ()=>{
     
     const flightNumber = useRef()
     const _actualArrivalTime = useRef();
       // 创建合约对象
-
-     const provider = new Web3Provider(window.ethereum)
-     const signer = provider.getSigner()
-     const contract = new Contract(contractAddress, contractInterface,signer);
+      const FTcontractAddress = "0x9c966e7051B4ed77099f9900299F40c2099b0e5a";
+      const IAcontractAddress = "0xF3D91537977876400A8d3018CEe80EBa7AF52fBF";
+      const FTcontractInterfaceABI = FTcontractInterface.abi;
+      const IAcontractInterfaceABI = IAcontractInterface.abi;
+      const provider = new Web3Provider(window.ethereum)
+      const signer = provider.getSigner()
+      const FTcontract = new Contract(FTcontractAddress, FTcontractInterfaceABI,signer);
+      const IAcontract = new Contract(IAcontractAddress, IAcontractInterfaceABI,signer);
     
-    const { send,state } = useContractFunction(contract, '');
-
-    const FTUpdate = ()=>{
-        // 更新机票信息
-        const arrtime = new Date(_actualArrivalTime.current.value).getTime()/1000
-    contract.functions.update(flightNumber.current.value,arrtime).then(()=>{
-    })
-    }
-    useEffect(() => {
-        if(state.errorMessage){
-            toast.error(state.errorMessage);
+        
+        const FTUpdate = async()=>{
+            console.log(flightNumber.current.value,_actualArrivalTime.current.value);
+            if(flightNumber.current.value&&_actualArrivalTime.current.value){
+            await FlightUpdate();
+            Insurancesettlement()}
         }
-    }, [state])
 
+
+      const FlightUpdate = async()=>{
+        const actualArrivalTime = new Date(_actualArrivalTime.current.value).getTime()/1000;
+        if (!window.confirm('改信息只能更新一次，请确定是否将航班编号为'+flightNumber.current.value+'的实际到达时间更改为'+_actualArrivalTime.current.value)) {
+          return
+        }
+        else{
+          try{
+            const result =  await FTcontract.update(
+                flightNumber.current.value,
+                actualArrivalTime)
+              console.log(result);
+          }catch(error){
+            console.log(error);
+        toast.error(error.message);
+          }
+        }
+          
+        }
+        const Insurancesettlement = async()=>{
+              try{
+                const result =  await IAcontract.settlement(
+                    flightNumber.current.value)
+                  console.log(result);
+              }catch(error){
+                console.log(error);
+            toast.error(error.message);
+              }
+            }
+              
+        
+  
+  
 return(
     
 <div className="">
@@ -54,7 +87,7 @@ return(
                                     </div>
                                 </div>
                                 <div className="col-12">
-                                    <button  onClick={FTUpdate} className="btn btn-primary w-100 py-3" type="submit">查询</button>
+                                    <button  onClick={FTUpdate} className="btn btn-primary w-100 py-3" type="submit">更新</button>
                                 </div>
                             </div>
                     </div>

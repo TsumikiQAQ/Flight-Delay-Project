@@ -4,7 +4,7 @@ import SelectPage from "./FlightSelectPage/SelectPage";
 import UpdatePage from "./FlightSelectPage/UpdatePage";
 
 
-const SelectFlight = ({contractAddress,contractInterface}) => {  
+const SelectFlight = () => {  
   const [choose, setActiveButton] = useState(null);  
   const handleButtonClick = (choose) => {  
     setActiveButton(choose);  
@@ -63,8 +63,8 @@ const SelectFlight = ({contractAddress,contractInterface}) => {
   </div>  
        
         {choose === 0 && <SelectPage />}  
-        {choose === 1 && <FlightCompanyPage contractAddress={contractAddress} contractInterface ={contractInterface}/>}  
-        {choose === 2 && <UpdatePage contractAddress={contractAddress} contractInterface ={contractInterface}/>}  
+        {choose === 1 && <FlightCompanyPage />}  
+        {choose === 2 && <UpdatePage />}  
       </div>   
   );  
 };

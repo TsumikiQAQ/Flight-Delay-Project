@@ -602,3 +602,77 @@ code {
 .footer .copyright a {
   color: var(--light);
 }
+.ticket {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 30px;
+  width: 400px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f1f1f1;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.number {
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #333;
+}
+
+.times {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.departure-time {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.duration {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+}
+
+.arrival-time {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.places {
+  display: flex;
+  justify-content: space-between;
+}
+
+.departure-place {
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #333;
+}
+
+.arrival-place {
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #333;
+}

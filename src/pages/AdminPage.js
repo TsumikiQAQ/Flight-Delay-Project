@@ -54,10 +54,6 @@ const AdminPage = ({ contract }) => {
             setFunctionName('removeAirlines')
         }
     }
-    const getContractBlance = ()=>{
-        contract.functions.getContractBalance().then((blance)=> console.log(blance))
-    }
-
 
     useEffect(() => {
         if(functionName === 'addAirlines'){
@@ -115,10 +111,10 @@ const AdminPage = ({ contract }) => {
                         <h1 className="mb-4">注销航空公司</h1>
                             <div className="row g-3">
                             <div className="col-12 col-sm-6">
-                                    <input ref={airlineName} type="text" className="form-control border-0" placeholder="航空公司名称" style={{height: "55px"}}/>
+                                    <input ref={removeairlineName} type="text" className="form-control border-0" placeholder="航空公司名称" style={{height: "55px"}}/>
                                 </div> 
                                 <div className="col-12 col-sm-6">
-                                    <input ref={airlineAddress} type="text" className="form-control border-0" placeholder="航空公司地址" style={{height: "55px"}}/>
+                                    <input ref={removeAirlineAddress} type="text" className="form-control border-0" placeholder="航空公司地址" style={{height: "55px"}}/>
                                 </div> 
                                 <div className="col-12">
                                     <button  onClick={removeAirlines} className="btn btn-primary w-100 py-3" type="submit">注销</button>

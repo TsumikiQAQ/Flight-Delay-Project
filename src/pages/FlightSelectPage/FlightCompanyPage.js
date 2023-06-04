@@ -1,11 +1,11 @@
-import { useRef, useState, useEffect,useCallback  } from 'react';
+import { useRef } from 'react';
 import { utils } from 'ethers';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Web3Provider } from "@ethersproject/providers";
 import { Contract } from '@ethersproject/contracts';
-
-const FlightCompanyPage = ({contractAddress,contractInterface}) => {
+import ALContractABI from "../../artifacts/contracts/Airline.sol/Airline.json"
+const FlightCompanyPage = () => {
  
     //  /**
     //  * @dev 发布机票合约(msg.value必须大于_totalSeat * _ticketPrice / 2)
@@ -26,6 +26,8 @@ const FlightCompanyPage = ({contractAddress,contractInterface}) => {
     const destinationPoint = useRef()
 
     // 创建合约对象
+    const contractInterface = new utils.Interface(ALContractABI.abi);
+    const contractAddress = "0x30F4f91ec68fd0fC2Da032D6A999FD52b0937672";
     const provider = new Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const contract = new Contract(contractAddress, contractInterface,signer);
@@ -130,7 +132,7 @@ const FlightCompanyPage = ({contractAddress,contractInterface}) => {
                               </div>
                           </div>
                           <div className="col-12">
-                              <button  onClick={releaseFlight} className="btn btn-primary w-100 py-3" type="submit">查询</button>
+                              <button  onClick={releaseFlight} className="btn btn-primary w-100 py-3" type="submit">发布</button>
                           </div>
                       </div>
               </div>

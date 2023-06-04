@@ -10,16 +10,16 @@ import SelectFlight from "./pages/SelectFlightPage";
 import { Contract } from "@ethersproject/contracts";
 import { useState,useEffect } from 'react';
 
+
 const App = () => {
-    // require('dotenv').config();
+    require('dotenv').config();
     const {  activateBrowserWallet,account, deactivate  } = useEthers();
     // 设置合约拥有者地址
     const ownerAddress = "0xB970deaB39cfE184385c75f4B7a666BB632e8F69";
 
     // 通过航空公司合约地址、接口创建合约实例对象
     const contractInterface = new utils.Interface(ALContractABI.abi);
-    // console.log(process.env.REACT_APP_ALAddr);
-    const contractAddress = "0x184A7055491bCEDA8c922d722E341B41689B3015";
+    const contractAddress = "0x30F4f91ec68fd0fC2Da032D6A999FD52b0937672";
     const provider = new Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const contract = new Contract(contractAddress, contractInterface, signer);
@@ -45,8 +45,8 @@ const App = () => {
  地址为garudaIndonesiaAddress进入航班发布界面
  两个都不是进入购票界面 */}
             {account === ownerAddress && <AdminPage contract={contract} />}
-            {boolair && <SelectFlight contractAddress={contractAddress} contractInterface={contractInterface} />}
-            {account !== ownerAddress && !boolair && account && <UserPage contractAddress={contractAddress} contractInterface={contractInterface} />}
+            {boolair && <SelectFlight />}
+            {account !== ownerAddress && !boolair && account && <UserPage />}
             {!account && !boolair && (
                 <div>
           

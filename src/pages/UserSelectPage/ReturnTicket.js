@@ -97,8 +97,8 @@ const ReturnTicketdata = ()=>{
     dataarr.forEach(data => {
       const{flightNumber ,departureTime,scheduledArrivalTime,departuredate,scheduledArrivaldate,ticketPrice,departurePoint,destinationPoint,insurance,idNumber,seatnumber} = data;
       
-      const departureTimeDate = new Date(departuredate + departureTime);
-      const arrivalTimeDate = new Date(scheduledArrivaldate + scheduledArrivalTime);
+      const departureTimeDate = new Date(departuredate +' '+ departureTime);
+      const arrivalTimeDate = new Date(scheduledArrivaldate +" "+ scheduledArrivalTime);
       const duration = Math.floor((arrivalTimeDate - departureTimeDate) / 1000 / 60);
       let insuranceText;
   switch (insurance) {

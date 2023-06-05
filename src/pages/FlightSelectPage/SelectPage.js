@@ -9,50 +9,51 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Select = ()=>{
     const { account } = useEthers();
+    const dataarr = [{flightNumber: 2 ,departuredate: '2023-6-4',scheduledArrivaldate: '2023-6-4',departureTime: '18:00',scheduledArrivalTime:'19:00',totalseat:30,departurePoint:'成都',destinationPoint:'北京'}]
+    let i = 0;
+    // let dataarr;
+    // axios.post('/selectFlight', {
+    //   account
+    // })
+    // .then(response => {
+    //   // 处理响应数据
+    //  dataarr =  response.data;
+    // })
+    // .catch(error => {
+    //   // 处理错误
+    //   console.error(error);
+    // });
     
-    let dataarr;
-    axios.post('/selectFlight', {
-      account
-    })
-    .then(response => {
-      // 处理响应数据
-     dataarr =  response.data;
-    })
-    .catch(error => {
-      // 处理错误
-      console.error(error);
+    let TicketList = [];
+    dataarr.forEach(data => {
+      const{flightNumber ,departureTime,scheduledArrivalTime,departuredate,scheduledArrivaldate,departurePoint,destinationPoint} = data;
+      
+      const departureTimeDate = new Date(departuredate +' '+ departureTime);
+      console.log(departureTimeDate);
+      const arrivalTimeDate = new Date(scheduledArrivaldate +' '+ scheduledArrivalTime);
+      const duration = Math.floor((arrivalTimeDate - departureTimeDate) / 1000 / 60);
+     
+      TicketList.push(
+        <div className="ticket" key={i}  style={{"marginTop" : "1rem"}}>
+          <div className="header">
+            <img src="./logos/logo.png" alt="Logo" className="logo" />
+            <div className="number">{flightNumber}</div>
+          </div>
+          <div className="times">
+            <div className="departure-time">{departureTime}</div>
+            <div className="duration">总时长: {duration} 分钟</div>
+            <div className="arrival-time">{scheduledArrivalTime}</div>
+          </div>
+          <div className="places">
+            <div className="departure-place">{departurePoint}</div>
+            <div className="arrival-place">{destinationPoint}</div>
+          </div>
+          </div>
+      );
+      i++
     });
-    let FlighttList =''
-    for(let i=0; i<dataarr.length; i++){
-        FlighttList += `
-        <tr>
-        <th>航班编号</th>
-        <th>预定起飞时间</th>
-        <th>预定到达时间</th>
-        <th>机票价格</th>
-        <th>座位数量</th>
-        <th>出发地</th>
-        <th>目的地</th>
-      </tr>
-      <tr>
-        <td>${dataarr[i].flightNumber}</td>
-        <td>${dataarr[i].departureTime}</td>
-        <td>${dataarr[i].scheduledArrivalTime}</td>
-        <td>${dataarr[i].ticketPrice}</td>
-        <td>${dataarr[i].totalSeat}</td>
-        <td>${dataarr[i].departurePoint}</td>
-        <td>${dataarr[i].destinationPoint}</td>
-      </tr>
-      <div><button>预订</button></div>
-        `
-    }
 
-return(
-<div>
-    <div>
-  {FlighttList}
-        </div>
-        </div>
-)
+return TicketList;
+
 }
 export default Select;

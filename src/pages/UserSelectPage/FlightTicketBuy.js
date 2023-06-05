@@ -92,8 +92,8 @@ const handleBuy = async() => {
       dataarr.forEach(data => {
         const{flightNumber ,departureTime,scheduledArrivalTime,departuredate,scheduledArrivaldate,ticketPrice,departurePoint,destinationPoint} = data;
         
-        const departureTimeDate = new Date(departuredate + departureTime);
-        const arrivalTimeDate = new Date(scheduledArrivaldate + scheduledArrivalTime);
+        const departureTimeDate = new Date(departuredate +" "+ departureTime);
+        const arrivalTimeDate = new Date(scheduledArrivaldate +" "+ scheduledArrivalTime);
         const duration = Math.floor((arrivalTimeDate - departureTimeDate) / 1000 / 60);
         TicketList.push(
           <div className="ticket" key={i}  style={{"marginTop" : "1rem"}}>

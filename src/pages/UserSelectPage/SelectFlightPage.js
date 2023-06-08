@@ -9,30 +9,33 @@ const SelectFlight = ()=>{
     const arriveplace = useRef()
     const departtime = useRef()
     const [showFlightTicketBuy, setShowFlightTicketBuy] = useState(false);
-    let dataarr = [{flightNumber: 20 ,departuredate: '2023-6-4',scheduledArrivaldate: '2023-6-4',departureTime: '18:00',scheduledArrivalTime:'19:00',ticketPrice:'0.01',totalseat:30,departurePoint:'成都',destinationPoint:'北京'}];
-    const handleSelectFlight = () => {
+    // let dataarr = [{flightNumber: 5 ,departuredate: '2023-6-6',scheduledArrivaldate: '2023-6-6',departureTime: '15:00',scheduledArrivalTime:'16:00',ticketPrice:'0.01',departurePoint:'成都',destinationPoint:'上海'}];
+    const [dataarr,setDataArr] =useState([]);
+    const handleSelectFlight = async() => {
+        await selectFlight()
         setShowFlightTicketBuy(true);
       };
      
-//     function selectFlight(){
-
-//     const departPlace = departplace.current.value;
-//     const arrivePlace = arriveplace.current.value;
-//     const departTime = departtime.current.value;
-//     await axios.post('/selectFlight', {
-//       departPlace,
-//       arrivePlace,
-//       departTime
-//     })
-//     .then(response => {
-//       // 处理响应数据
-//      dataarr =  response.data;
-//     })
-//     .catch(error => {
-//       // 处理错误
-//       console.error(error);
-//     });
-// } 
+    const selectFlight=async ()=>{
+    const departPlace = departplace.current.value;
+    const arrivePlace = arriveplace.current.value;
+    const departTime = new Date(departtime.current.value).getTime()/1000;
+    await axios.post('http://localhost:8080/UserSelectFlight', {
+      departPlace,
+      arrivePlace,
+      departTime
+    }, {withCredentials: true}) 
+   
+    .then(response => {
+        let data =response.data;
+      // 处理响应数据
+      setDataArr(data.data);
+    })
+    .catch(error => {
+      // 处理错误
+      console.error(error);
+    });
+} 
 
     return (
         <div>

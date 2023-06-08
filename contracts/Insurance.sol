@@ -111,7 +111,7 @@ contract Insurance is InsuranceInterface {
     ) external payable isIdCard(_idCard) isFlighting2(_flightNumber) {
         uint256 price;
         require(
-            choose == 0 || choose == 1 || choose == 2,
+            choose == 1 || choose == 2 || choose == 3,
             "Illegal parameter."
         );
         uint24 _seat = FlightInterface(flightContract).getIdCardToSeat(
@@ -124,8 +124,8 @@ contract Insurance is InsuranceInterface {
         );
         require(msg.sender == _addr, "The ID card is not yours.");
         require(_seat != 0, "You don't have a ticket.");
-        // 0表示购买延误险，1表示购买取消险，2表示两种保险都购买
-        if (choose == 0) {
+        // 1表示购买延误险，2表示购买取消险，3表示两种保险都购买
+        if (choose == 1) {
             price = flightNumberToInsurance[_flightNumber].delayInsurancePrice;
             require(
                 flightNumberToInsurance[_flightNumber].delayToIdCard[_seat] ==
@@ -139,13 +139,8 @@ contract Insurance is InsuranceInterface {
             flightNumberToInsurance[_flightNumber].idCardToAddress[
                 _idCard.stringToBytes32()
             ] = msg.sender;
-            emit InsurancePurchased(
-                msg.sender,
-                _flightNumber,
-                _idCard,
-                "delayInsurance"
-            );
-        } else if (choose == 1) {
+            emit InsurancePurchased(abi.encodePacked(msg.sender), _flightNumber, _idCard, 1);
+        } else if (choose == 2) {
             price = flightNumberToInsurance[_flightNumber].cancelInsurancePrice;
             require(
                 flightNumberToInsurance[_flightNumber].cancelToIdCard[_seat] ==
@@ -159,13 +154,8 @@ contract Insurance is InsuranceInterface {
             flightNumberToInsurance[_flightNumber].idCardToAddress[
                 _idCard.stringToBytes32()
             ] = msg.sender;
-            emit InsurancePurchased(
-                msg.sender,
-                _flightNumber,
-                _idCard,
-                "cancelInsurance"
-            );
-        } else if (choose == 2) {
+            emit InsurancePurchased(abi.encodePacked(msg.sender), _flightNumber, _idCard, 2);
+        } else if (choose == 3) {
             price =
                 flightNumberToInsurance[_flightNumber].delayInsurancePrice +
                 flightNumberToInsurance[_flightNumber].cancelInsurancePrice;
@@ -188,18 +178,7 @@ contract Insurance is InsuranceInterface {
             flightNumberToInsurance[_flightNumber].idCardToAddress[
                 _idCard.stringToBytes32()
             ] = msg.sender;
-            emit InsurancePurchased(
-                msg.sender,
-                _flightNumber,
-                _idCard,
-                "delayInsurance"
-            );
-            emit InsurancePurchased(
-                msg.sender,
-                _flightNumber,
-                _idCard,
-                "cancelInsurance"
-            );
+            emit InsurancePurchased(abi.encodePacked(msg.sender), _flightNumber, _idCard, 3);
         }
         balanceOf[_flightNumber] += msg.value;
     }
@@ -231,12 +210,7 @@ contract Insurance is InsuranceInterface {
             flightNumberToInsurance[_flightNumber].idCardToAddress[
                 _idCard.stringToBytes32()
             ] = address(0);
-            emit InsuranceRefund(
-                msg.sender,
-                _flightNumber,
-                _idCard,
-                "delayInsurance"
-            );
+            emit InsuranceRefund(abi.encodePacked(msg.sender), _flightNumber, _idCard, 1);
         }
         if (
             flightNumberToInsurance[_flightNumber].cancelToIdCard[_seat] ==
@@ -250,12 +224,7 @@ contract Insurance is InsuranceInterface {
             flightNumberToInsurance[_flightNumber].idCardToAddress[
                 _idCard.stringToBytes32()
             ] = address(0);
-            emit InsuranceRefund(
-                msg.sender,
-                _flightNumber,
-                _idCard,
-                "cancelInsurance"
-            );
+            emit InsuranceRefund(abi.encodePacked(msg.sender), _flightNumber, _idCard, 2);
         }
         payable(msg.sender).transfer(price);
         balanceOf[_flightNumber] -= price;
@@ -376,7 +345,6 @@ contract Insurance is InsuranceInterface {
         balanceOf[_flightNumber] = 0;
     }
 
-    // 查看乘客保险购买情况
     function checkInsurance(
         uint256 _flightNumber,
         string memory _idCard,

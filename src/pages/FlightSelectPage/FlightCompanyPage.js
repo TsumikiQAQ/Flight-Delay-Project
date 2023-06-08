@@ -27,13 +27,12 @@ const FlightCompanyPage = () => {
 
     // 创建合约对象
     const contractInterface = new utils.Interface(ALContractABI.abi);
-    const contractAddress = "0x30F4f91ec68fd0fC2Da032D6A999FD52b0937672";
+    const contractAddress = "0xA54A1E3Ab0E21Dd659537475DcA261ffe3FA0e7e";
     const provider = new Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const contract = new Contract(contractAddress, contractInterface,signer);
   
   
-    console.log(contract);
     const releaseFlight = async()=>{
         // 检查 contract 对象是否存在
         if (!contract) {
@@ -91,6 +90,7 @@ const FlightCompanyPage = () => {
                 value: utils.parseEther((ticketPriceValue*totalSeatValue/2).toString())
               })
               console.log(result);
+              alert('发布航班成功')
           }catch(error){
             console.log(error);
         toast.error(error.message);

@@ -101,7 +101,7 @@ const AdminPage = ({ contract }) => {
             </div>
         </div>  
                {/* 注册航空公司，将航空公司地址添加到航空公司dao */}
-     
+        
 
             {/*注销航空公司，将航空公司移除dao组织*/}
             <div className="container position-relative wow fadeInUp" data-wow-delay="0.1s" style={{"marginTop" : "1rem"}}>

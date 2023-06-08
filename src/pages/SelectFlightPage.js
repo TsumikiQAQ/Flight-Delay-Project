@@ -2,7 +2,8 @@ import { useRef, useState } from "react";
 import FlightCompanyPage from "./FlightSelectPage/FlightCompanyPage";  
 import SelectPage from "./FlightSelectPage/SelectPage";  
 import UpdatePage from "./FlightSelectPage/UpdatePage";
-
+import { useEthers } from '@usedapp/core';
+import axios from 'axios';
 
 const SelectFlight = () => {  
   const [choose, setActiveButton] = useState(null);  
@@ -10,7 +11,24 @@ const SelectFlight = () => {
     setActiveButton(choose);  
   };
 
+const { account } = useEthers();
+const [dataarr, setDataArr] = useState(null);  
+ 
 
+  const selectFlight=async ()=>{
+    await axios.post('http://localhost:8080/CompanySelectFlight', {
+     account
+    }, {withCredentials: true}) 
+    .then(response => {
+        let data =response.data;
+      // 处理响应数据
+      setDataArr(data.data);
+    })
+    .catch(error => {
+      // 处理错误
+      console.error(error);
+    });
+} 
   return (  
   
       <div>
@@ -24,8 +42,9 @@ const SelectFlight = () => {
                   <div className="d-flex align-items-center justify-content-between bg-light p-4">
                       
                       <h5 className="text-truncate me-3 mb-0">查询已发布航班</h5>
-                      <a className="btn btn-square btn-outline-primary border-2 border-white flex-shrink-0" onClick={(e)=>{
+                      <a className="btn btn-square btn-outline-primary border-2 border-white flex-shrink-0" onClick={async(e)=>{
                         e.preventDefault();
+                        await selectFlight();
                         handleButtonClick(0)
                     }
                         }  
@@ -62,7 +81,7 @@ const SelectFlight = () => {
       </div>
   </div>  
        
-        {choose === 0 && <SelectPage />}  
+        {choose === 0 && <SelectPage dataarr={dataarr}/>}  
         {choose === 1 && <FlightCompanyPage />}  
         {choose === 2 && <UpdatePage />}  
       </div>   

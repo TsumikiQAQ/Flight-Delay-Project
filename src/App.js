@@ -19,7 +19,7 @@ const App = () => {
 
     // 通过航空公司合约地址、接口创建合约实例对象
     const contractInterface = new utils.Interface(ALContractABI.abi);
-    const contractAddress = "0x30F4f91ec68fd0fC2Da032D6A999FD52b0937672";
+    const contractAddress = "0xA54A1E3Ab0E21Dd659537475DcA261ffe3FA0e7e";
     const provider = new Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const contract = new Contract(contractAddress, contractInterface, signer);

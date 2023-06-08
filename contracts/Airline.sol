@@ -143,12 +143,14 @@ contract Airline is AirlineInterface {
             msg.sender
         );
         emit TicketIssued(
-            msg.sender,
+            abi.encodePacked(msg.sender),
+            _airlineName.bytes32ToString(),
             _flightNumber,
             _departurePoint,
             _destinationPoint,
             _departureTime,
-            _scheduledArrivalTime
+            _scheduledArrivalTime,
+            _ticketPrice
         );
     }
 

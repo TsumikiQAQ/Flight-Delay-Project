@@ -5,16 +5,16 @@ interface InsuranceInterface {
     // 参保，退保事件
     // insuranceName :  delayInsurance 延误险  cancelInsurance 取消险
     event InsurancePurchased(
-        address  user,
-        uint256  flightNumber,
+        bytes addr,
+        uint256 flightNumber,
         string customer,
-        string insuranceName
+        uint8 insuranceClass
     );
     event InsuranceRefund(
-        address  user,
-        uint256  flightNumber,
+        bytes addr,
+        uint256 flightNumber,
         string customer,
-        string insuranceName
+        uint8 insuranceClass
     );
 
     // 保险结构体

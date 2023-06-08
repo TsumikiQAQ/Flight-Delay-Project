@@ -18,8 +18,8 @@ const Update = ()=>{
     const flightNumber = useRef()
     const _actualArrivalTime = useRef();
       // 创建合约对象
-      const FTcontractAddress = "0x9c966e7051B4ed77099f9900299F40c2099b0e5a";
-      const IAcontractAddress = "0xF3D91537977876400A8d3018CEe80EBa7AF52fBF";
+  const FTcontractAddress = "0x91d9137F81C1B04e9f5Fc2c77F5eA45E589C31dF";
+  const IAcontractAddress = "0x9BeF27A51039DDbc2EBbCB5F6d7FE1078035aE33";
       const FTcontractInterfaceABI = FTcontractInterface.abi;
       const IAcontractInterfaceABI = IAcontractInterface.abi;
       const provider = new Web3Provider(window.ethereum)
@@ -47,6 +47,7 @@ const Update = ()=>{
                 flightNumber.current.value,
                 actualArrivalTime)
               console.log(result);
+              alert('更新成功')
           }catch(error){
             console.log(error);
         toast.error(error.message);
@@ -59,6 +60,7 @@ const Update = ()=>{
                 const result =  await IAcontract.settlement(
                     flightNumber.current.value)
                   console.log(result);
+                  alert('结算成功')
               }catch(error){
                 console.log(error);
             toast.error(error.message);

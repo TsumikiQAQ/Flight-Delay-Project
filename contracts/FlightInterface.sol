@@ -34,18 +34,8 @@ interface FlightInterface {
     }
 
     // 买票，退票事件
-    event TicketPurchased(
-        address  user,
-        uint256  flightNumber,
-        string customer,
-        uint24 seat
-    );
-    event TicketRefund(
-        address  user,
-        uint256  flightNumber,
-        string customer,
-        uint24 seat
-    );
+    
+    event TicketRefund(bytes addr, uint256 flightNumber, string customer, uint24 seat);
 
     // 仅Airline合约调用的接口
     function createFlight(

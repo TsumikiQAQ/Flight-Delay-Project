@@ -189,7 +189,7 @@ contract Flight is FlightInterface {
         ] = msg.sender;
 
         balanceOf[_flightNumber] += msg.value;
-        emit TicketPurchased(msg.sender, _flightNumber, _idCard, _seat);
+        emit TicketPurchased(abi.encodePacked(msg.sender), _flightNumber, _idCard, _seat);
     }
 
     // 退票逻辑
@@ -226,12 +226,7 @@ contract Flight is FlightInterface {
         balanceOf[_flightNumber] -= flightNumberToFlight[_flightNumber]
             .ticketPrice;
 
-        emit TicketRefund(
-            msg.sender,
-            _flightNumber,
-            _idCard.bytes32ToString(),
-            _seat
-        );
+        emit TicketRefund(abi.encodePacked(msg.sender), _flightNumber, _idCard.bytes32ToString(), _seat);
     }
 
     // 由航空公司上传航班实际到达时间

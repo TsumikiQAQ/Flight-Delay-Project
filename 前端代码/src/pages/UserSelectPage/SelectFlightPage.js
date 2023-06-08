@@ -30,6 +30,7 @@ const SelectFlight = ()=>{
         let data =response.data;
       // 处理响应数据
       setDataArr(data.data);
+      console.log(dataarr);
     })
     .catch(error => {
       // 处理错误

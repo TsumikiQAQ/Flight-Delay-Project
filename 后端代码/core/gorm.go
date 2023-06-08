@@ -4,10 +4,11 @@ import (
 	"airline/global"
 	"airline/model"
 	"fmt"
+	"time"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"time"
 )
 
 func InitGorm() *gorm.DB { //返回一个db连接
@@ -41,21 +42,21 @@ func createTables(db *gorm.DB) error {
 		return nil // 表已存在，直接返回
 	}
 
-	if err := db.AutoMigrate(&model.FlightModel{}); err != nil { // YourModel改为实际的模型名称
+	if err := db.Table("flights").AutoMigrate(&model.FlightModel{}); err != nil { // YourModel改为实际的模型名称
 		return err
 	}
 	if db.Migrator().HasTable(&model.UserOrderModel{}) { // YourModel改为实际的模型名称
 		return nil // 表已存在，直接返回
 	}
 
-	if err := db.AutoMigrate(&model.UserOrderModel{}); err != nil { // YourModel改为实际的模型名称
+	if err := db.Table("user_order_info").AutoMigrate(&model.UserOrderModel{}); err != nil { // YourModel改为实际的模型名称
 		return err
 	}
 	if db.Migrator().HasTable(&model.UserOrderDetail{}) { // YourModel改为实际的模型名称
 		return nil // 表已存在，直接返回
 	}
 
-	if err := db.AutoMigrate(&model.UserOrderDetail{}); err != nil { // YourModel改为实际的模型名称
+	if err := db.Table("user_order_details").AutoMigrate(&model.UserOrderDetail{}); err != nil { // YourModel改为实际的模型名称
 		return err
 	}
 
